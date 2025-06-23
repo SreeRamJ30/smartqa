@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.single-line-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .single-line-ellipsis {
+    max-width: 90vw;
+  }
+}
+
+/* Global font and icon size control */
+html, body {
+  font-size: 12px ; /* Reduce base font size for the whole app */
+  line-height: 1.2 !important; /* Make text more compact */
+  letter-spacing: normal !important; /* Remove extra letter spacing */
+}
+
+.fas, .fa, .far, .fal, .fab {
+  font-size: 0.9em ; /* Set default icon size to match text, adjust as needed */
+}
+
+/* You can further adjust icon size globally by changing 1em to e.g. 0.9em or 0.8em if needed */

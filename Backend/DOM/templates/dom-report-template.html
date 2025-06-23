@@ -1,0 +1,778 @@
+<!-- DOM Comparison Report Template -->
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Comparison Report</title>
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --primary-light: #dbeafe;
+        --success-color: #22c55e;
+        --success-light: #dcfce7;
+        --error-color: #ef4444;
+        --error-light: #fee2e2;
+        --warning-color: #f59e0b;
+        --warning-light: #fef3c7;
+        --info-color: #3b82f6;
+        --info-light: #dbeafe;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --text-color: #1e293b;
+        --text-light: #64748b;
+        --border-color: #e2e8f0;
+        --container-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --transition-normal: all 0.3s ease;
+        --transition-fast: all 0.15s ease;
+        --added-bg: #dcfce7;
+        --added-text: #166534;
+        --removed-bg: #fee2e2;
+        --removed-text: #b91c1c;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body { 
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+      
+      .header {
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        color: #fff;
+        padding: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+      
+      .header:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+      }
+      
+      .header-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .header-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .nav-bar {
+        background-color: #0f172a;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+      
+      .nav-bar a {
+        text-decoration: none;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: var(--transition-normal);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-bar a:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+      
+      .nav-bar a.active {
+        background-color: var(--primary-hover);
+        position: relative;
+      }
+      
+      .nav-bar a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: 3px;
+        background: #fff;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+      }
+      
+      .status-bar {
+        background: var(--card-bg);
+        color: var(--text-color);
+        padding: 1.25rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      
+      .status-items {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      
+      .status-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        background: var(--bg-color);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        transition: var(--transition-fast);
+        margin-right: 0;
+      }
+      
+      .status-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .status-circle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      
+      .passed .status-circle {
+        background-color: var(--success-color);
+        box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+      }
+      
+      .failed .status-circle {
+        background-color: var(--error-color);
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+      }
+      
+      .total .status-circle {
+        background-color: var(--info-color);
+        box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+      }
+      
+      .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      
+      .search-container {
+        background: var(--card-bg);
+        padding: 1.75rem;
+        border-radius: 1rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .search-container:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: var(--primary-color);
+      }
+      
+      .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 0.85rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        outline: none;
+        transition: all 0.3s;
+        background-color: #f9fafb;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) inset;
+      }
+      
+      .search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        background-color: #fff;
+      }
+      
+      .search-button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s;
+        box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .search-button:before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      
+      .search-button:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+      }
+      
+      .search-button:active {
+        transform: translateY(0);
+      }
+      
+      #searchResult {
+        font-size: 0.95rem;
+        color: var(--primary-color);
+        font-weight: 600;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        display: inline-block;
+        transition: all 0.3s;
+      }
+      
+      #searchResult:not(:empty) {
+        background-color: var(--primary-light);
+      }
+      
+      .comparison-container {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: var(--transition-normal);
+        border: 1px solid var(--border-color);
+      }
+      
+      .comparison-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      }
+      
+      .comparison-header {
+        padding: 1.75rem 2rem;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+        background-color: #f8fafc;
+      }
+      
+      .comparison-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      
+      .comparison-title::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 24px;
+        border-radius: 2px;
+        background: var(--primary-color);
+      }
+      
+      .url-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .url-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+      }
+      
+      .url-value {
+        word-break: break-all;
+        color: var(--text-light);
+      }
+      
+      .diff-summary {
+        font-weight: 700;
+        color: var(--error-color);
+        margin: 1.5rem;
+        font-size: 1.1rem;
+        background: var(--removed-bg);
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 5px rgba(239, 68, 68, 0.2);
+      }
+      
+      .diff-container {
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        margin: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      
+      .diff-line {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        line-height: 1.5;
+        font-family: monospace;
+        font-size: 0.95rem;
+        transition: background-color 0.2s;
+      }
+      
+      .diff-line:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+      
+      .diff-line:last-child {
+        border-bottom: none;
+      }
+      
+      .added {
+        background-color: var(--added-bg);
+        color: var(--added-text);
+      }
+      
+      .removed {
+        background-color: var(--removed-bg);
+        color: var(--removed-text);
+      }
+      
+      .unchanged {
+        color: var(--text-color);
+      }
+      
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 2.5rem 0;
+        gap: 0.5rem;
+      }
+      
+      .pagination-btn {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+        color: #fff;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .pagination-btn:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+        transition: transform 0.8s ease;
+        z-index: 1;
+      }
+      
+      .pagination-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+      }
+      
+      .pagination-btn:hover:before:not(:disabled) {
+        transform: translateX(200%);
+      }
+      
+      .pagination-btn:disabled {
+        background: var(--text-light);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      
+      .pagination-page {
+        background: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        min-width: 2.75rem;
+        text-align: center;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      
+      .pagination-page:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      .pagination-page.active {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+        color: #fff;
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+      }
+      
+      .status-badge {
+        color: #fff;
+        padding: 0.4rem 1.25rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .status-badge.passed {
+        background-color: var(--success-color);
+      }
+      
+      .status-badge.failed {
+        background-color: var(--error-color);
+      }
+      
+      .status-badge::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        margin-right: 8px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .header, .content {
+          padding: 1rem;
+        }
+        
+        .status-bar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+          padding: 1rem;
+        }
+        
+        .status-item {
+          margin-right: 0;
+        }
+        
+        .search-container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        
+        .search-input {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-title">DOM Comparison Report</div>
+      <div class="header-subtitle">Compare document object models between environments</div>
+    </div>
+    
+    <div class="status-bar">
+      <div class="status-items">
+        <div class="status-item passed">
+          <span class="status-circle"></span>
+          <span>Passed: {{PASSED}}</span>
+        </div>
+        <div class="status-item failed">
+          <span class="status-circle"></span>
+          <span>Failed: {{FAILED}}</span>
+        </div>
+        <div class="status-item total">
+          <span class="status-circle"></span>
+          <span>Total: {{TOTAL}}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div class="search-container">
+        <input id="searchInput" type="text" placeholder="Search by page name..." class="search-input" list="pageSuggestions">
+        <datalist id="pageSuggestions"></datalist>
+        <button onclick="searchPage()" class="search-button">Search</button>
+        <span id="searchResult"></span>
+      </div>
+      
+      <div id="comparison-content"></div>
+      <div id="dom-comparison-container" class="comparison-container"></div>
+      
+      <div class="pagination" id="pagination"></div>
+    </div>
+    
+    <script>
+      // Injected by your report generator:
+      const comparisonResults = []; // Replace with actual JSON data or an empty array as a placeholder
+      let currentPage = 1;
+
+      function render(page) {
+        const data = comparisonResults[page - 1];
+        if (!data) return;
+        
+        // Determine border color based on differencesCount
+        const borderColor = data.differencesCount > 0 ? 'var(--error-color)' : 'var(--success-color)';
+        
+        // Create comparison container with dynamic border color
+        let html = '<div class="comparison-header" style="border-left: 6px solid ' + borderColor + ';">';
+        html += '<div class="comparison-title">Comparison: ' + data.pageName + '</div>';
+        
+        // URL info with enhanced styling
+        html += '<div class="url-info">';
+        html += '<div><span class="url-label">Test URL:</span><span class="url-value">' + data.testingUrl + '</span></div>';
+        html += '<div><span class="url-label">Reference URL:</span><span class="url-value">' + data.referenceUrl + '</span></div>';
+        
+        // Add status badge
+        const statusClass = data.differencesCount > 0 ? 'failed' : 'passed';
+        const statusText = data.differencesCount > 0 ? 'DIFFERENCES FOUND' : 'IDENTICAL';
+        html += '<div style="margin-top:1rem;"><span class="status-badge ' + statusClass + '">' + statusText + '</span></div>';
+        
+        html += '</div></div>'; // Close url-info and comparison-header
+        
+        // Add diff summary
+        if (data.differencesCount > 0) {
+          html += '<div class="diff-summary">' + data.differencesCount + ' difference' + (data.differencesCount === 1 ? '' : 's') + ' found</div>';
+        } else {
+          html += '<div class="diff-summary" style="background:var(--success-light);color:var(--added-text);">DOM structures are identical</div>';
+        }
+        
+        // Add diff container
+        html += '<div class="diff-container">';
+        if (data.diffLines && data.diffLines.length > 0) {
+          data.diffLines.forEach(function(part) {
+            const prefix = part.type === 'added' ? '+' : part.type === 'removed' ? '-' : ' ';
+            html += '<div class="diff-line ' + part.type + '">' + prefix + ' ' + part.value + '</div>';
+          });
+        }
+        html += '</div>';
+        
+        document.getElementById('comparison-content').innerHTML = html;
+      }
+
+      // Populate datalist with page suggestions
+      function populateSuggestions() {
+        const datalist = document.getElementById('pageSuggestions');
+        datalist.innerHTML = '';
+        comparisonResults.forEach(r => {
+          if (r.pageName) {
+            const option = document.createElement('option');
+            option.value = r.pageName;
+            datalist.appendChild(option);
+          }
+        });
+      }
+
+      function searchPage() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        if (!query.trim()) {
+          document.getElementById('searchResult').textContent = 'Please enter a search term';
+          return;
+        }
+        const result = comparisonResults.find(r => r.pageName && r.pageName.toLowerCase().includes(query));
+        if (result) {
+          const pageIndex = comparisonResults.indexOf(result);
+          currentPage = pageIndex + 1;
+          render(currentPage);
+          setupPagination();
+          document.getElementById('searchResult').textContent = 'Found: ' + result.pageName;
+        } else {
+          document.getElementById('searchResult').textContent = 'No results found';
+        }
+      }
+
+      // Add event listener for Enter key in search input
+      document.getElementById('searchInput').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          searchPage();
+        }
+      });
+
+      function setupPagination() {
+        const pageCount = comparisonResults.length;
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        if (pageCount === 0) {
+          pagination.innerHTML = '<div>No comparison results available</div>';
+          return;
+        }
+
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'pagination-btn';
+        prevBtn.textContent = '« Prev';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => { 
+          if (currentPage > 1) { 
+            currentPage--; 
+            render(currentPage); 
+            setupPagination();
+          } 
+        };
+        pagination.appendChild(prevBtn);
+
+        // Show limited number of page buttons
+        const maxButtons = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+        let endPage = Math.min(pageCount, startPage + maxButtons - 1);
+        
+        // Adjust start if we're near the end
+        if (endPage - startPage + 1 < maxButtons) {
+          startPage = Math.max(1, endPage - maxButtons + 1);
+        }
+
+        if (startPage > 1) {
+          const firstBtn = document.createElement('button');
+          firstBtn.className = 'pagination-page';
+          firstBtn.textContent = '1';
+          firstBtn.onclick = () => { 
+            currentPage = 1; 
+            render(currentPage); 
+            setupPagination();
+          };
+          pagination.appendChild(firstBtn);
+          
+          if (startPage > 2) {
+            const ellipsis = document.createElement('span');
+            ellipsis.textContent = '...';
+            ellipsis.style.margin = '0 0.5rem';
+            pagination.appendChild(ellipsis);
+          }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+          const pageBtn = document.createElement('button');
+          pageBtn.className = 'pagination-page' + (i === currentPage ? ' active' : '');
+          pageBtn.textContent = i;
+          pageBtn.onclick = () => { 
+            currentPage = i; 
+            render(currentPage); 
+            setupPagination();
+          };
+          pagination.appendChild(pageBtn);
+        }
+
+        if (endPage < pageCount) {
+          if (endPage < pageCount - 1) {
+            const ellipsis = document.createElement('span');
+            ellipsis.textContent = '...';
+            ellipsis.style.margin = '0 0.5rem';
+            pagination.appendChild(ellipsis);
+          }
+          
+          const lastBtn = document.createElement('button');
+          lastBtn.className = 'pagination-page';
+          lastBtn.textContent = pageCount;
+          lastBtn.onclick = () => { 
+            currentPage = pageCount; 
+            render(currentPage); 
+            setupPagination();
+          };
+          pagination.appendChild(lastBtn);
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'pagination-btn';
+        nextBtn.textContent = 'Next »';
+        nextBtn.disabled = currentPage === pageCount;
+        nextBtn.onclick = () => { 
+          if (currentPage < pageCount) { 
+            currentPage++; 
+            render(currentPage); 
+            setupPagination();
+          } 
+        };
+        pagination.appendChild(nextBtn);
+      }
+
+      // Initialize the view
+      if (comparisonResults.length > 0) {
+        populateSuggestions();
+        render(currentPage);
+        setupPagination();
+      } else {
+        document.getElementById('dom-comparison-container').innerHTML = 
+          '<div style="text-align:center;padding:3rem;color:var(--text-light);">' +
+          '<h2>No comparison data available</h2>' +
+          '<p>Please run the comparison tool to generate results</p>' +
+          '</div>';
+      }
+    </script>
+  </body>
+  </html>

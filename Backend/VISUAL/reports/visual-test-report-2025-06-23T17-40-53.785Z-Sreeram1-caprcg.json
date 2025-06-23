@@ -1,0 +1,356 @@
+{
+  "id": "Sreeram1-caprcg",
+  "timestamp": "2025-06-23T17-40-53.785Z",
+  "user": {
+    "email": "Sreeram1@gmail.com",
+    "fullName": "Sree Ram J"
+  },
+  "summary": {
+    "totalTests": 15,
+    "passedTests": 12,
+    "failedTests": 3,
+    "successRate": 80
+  },
+  "results": [
+    {
+      "pageName": "Page: index.html",
+      "viewport": "desktop",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_0_desktop.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_0_desktop.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: index.html",
+      "viewport": "tablet",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_1_tablet.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_1_tablet.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: index.html",
+      "viewport": "mobile",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_2_mobile.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_indexhtml_0_viewport_2_mobile.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: about.html",
+      "viewport": "desktop",
+      "status": "FAIL",
+      "misMatchPercentage": 5.85,
+      "rawMisMatchPercentage": 5.853684413580247,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_0_desktop.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_0_desktop.png",
+      "diffPath": "../backstop_data/bitmaps_test/20250623-231044/failed_diff_visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_0_desktop.png",
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 57,
+      "differences": [
+        {
+          "type": "VISUAL_MISMATCH",
+          "path": "Page: about.html",
+          "testing": "5.85% different",
+          "reference": "baseline",
+          "issue": "Visual difference of 5.85% detected in desktop viewport (threshold: 10.0%)"
+        }
+      ],
+      "differencesCount": 1
+    },
+    {
+      "pageName": "Page: about.html",
+      "viewport": "tablet",
+      "status": "FAIL",
+      "misMatchPercentage": 15.44,
+      "rawMisMatchPercentage": 15.44189453125,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_1_tablet.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_1_tablet.png",
+      "diffPath": "../backstop_data/bitmaps_test/20250623-231044/failed_diff_visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_1_tablet.png",
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 32,
+      "differences": [
+        {
+          "type": "VISUAL_MISMATCH",
+          "path": "Page: about.html",
+          "testing": "15.44% different",
+          "reference": "baseline",
+          "issue": "Visual difference of 15.44% detected in tablet viewport (threshold: 10.0%)"
+        }
+      ],
+      "differencesCount": 1
+    },
+    {
+      "pageName": "Page: about.html",
+      "viewport": "mobile",
+      "status": "FAIL",
+      "misMatchPercentage": 40.06,
+      "rawMisMatchPercentage": 40.0575712143928,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/about2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_2_mobile.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_2_mobile.png",
+      "diffPath": "../backstop_data/bitmaps_test/20250623-231044/failed_diff_visual-test-2025-06-23T17-40-34989Z_Page_abouthtml_0_viewport_2_mobile.png",
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 24,
+      "differences": [
+        {
+          "type": "VISUAL_MISMATCH",
+          "path": "Page: about.html",
+          "testing": "40.06% different",
+          "reference": "baseline",
+          "issue": "Visual difference of 40.06% detected in mobile viewport (threshold: 10.0%)"
+        }
+      ],
+      "differencesCount": 1
+    },
+    {
+      "pageName": "Page: services.html",
+      "viewport": "desktop",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_0_desktop.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_0_desktop.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: services.html",
+      "viewport": "tablet",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_1_tablet.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_1_tablet.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: services.html",
+      "viewport": "mobile",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/services2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_2_mobile.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_serviceshtml_0_viewport_2_mobile.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: contact.html",
+      "viewport": "desktop",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_0_desktop.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_0_desktop.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: contact.html",
+      "viewport": "tablet",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_1_tablet.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_1_tablet.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: contact.html",
+      "viewport": "mobile",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/contact2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_2_mobile.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_contacthtml_0_viewport_2_mobile.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: faq.html",
+      "viewport": "desktop",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_0_desktop.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_0_desktop.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: faq.html",
+      "viewport": "tablet",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_1_tablet.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_1_tablet.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    },
+    {
+      "pageName": "Page: faq.html",
+      "viewport": "mobile",
+      "status": "PASS",
+      "misMatchPercentage": 0,
+      "rawMisMatchPercentage": 0,
+      "threshold": 0.1,
+      "testingUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq.html",
+      "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/faq2.html",
+      "referencePath": "../backstop_data/bitmaps_reference/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_2_mobile.png",
+      "testPath": "../backstop_data/bitmaps_test/20250623-231044/visual-test-2025-06-23T17-40-34989Z_Page_faqhtml_0_viewport_2_mobile.png",
+      "diffPath": null,
+      "dimensions": {
+        "width": 0,
+        "height": 0
+      },
+      "isSameDimensions": true,
+      "analysisTime": 0,
+      "differences": [],
+      "differencesCount": 0
+    }
+  ],
+  "generatedAt": "2025-06-23T17:40:53.788Z"
+}

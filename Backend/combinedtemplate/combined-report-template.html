@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Test Report</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --success-color: #10b981;
+            --success-light: #d1fae5;
+            --error-color: #ef4444;
+            --error-light: #fee2e2;
+            --warning-color: #f59e0b;
+            --warning-light: #fef3c7;
+            --info-color: #06b6d4;
+            --info-light: #cffafe;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --container-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --added-bg: #dcfce7;
+            --added-text: #166534;
+            --removed-bg: #fee2e2;
+            --removed-text: #b91c1c;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-success: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            --gradient-error: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color); 
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container { 
+            max-width: 1400px; 
+            width: 100%;
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="90" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 { 
+            font-size: 3rem; 
+            font-weight: 800; 
+            margin: 0 0 1rem 0;
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .report-meta {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .content-area {
+            padding: 2rem;
+        }
+
+        h2, h3 { 
+            color: var(--text-color); 
+            border: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            font-weight: 700;
+        }
+        
+        h2 { 
+            font-size: 2rem; 
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        h3 { font-size: 1.5rem; }
+
+        .summary { 
+            background: var(--card-bg);
+            padding: 2rem; 
+            border-radius: 16px; 
+            margin-bottom: 3rem; 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            box-shadow: var(--container-shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .summary-item { 
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .summary-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .summary-item .value { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .summary-item .label { 
+            font-size: 0.875rem; 
+            color: var(--text-light); 
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pass { color: var(--success-color) !important; }
+        .status-fail { color: var(--error-color) !important; }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: var(--bg-color);
+            padding: 0.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .tab-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            border-radius: 8px;
+            margin: 0 0.25rem;
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .tab-btn.active {
+            color: white;
+            background: var(--gradient-primary);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Search and suggestions styling */
+        .search-container { 
+            background: var(--card-bg); 
+            padding: 2rem; 
+            border-radius: 16px; 
+            margin-bottom: 3rem; 
+            box-shadow: var(--container-shadow);
+            border: 1px solid var(--border-color);
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 1rem; 
+            align-items: center; 
+            position: relative; 
+            overflow: visible;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .search-input { 
+            width: 100%;
+            padding: 1rem 1.5rem; 
+            font-size: 1rem; 
+            border-radius: 12px; 
+            border: 2px solid var(--border-color); 
+            outline: none; 
+            transition: var(--transition-normal); 
+            background-color: var(--bg-color); 
+            font-weight: 500;
+        }
+        
+        .search-input:focus { 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); 
+            background-color: #fff; 
+        }
+        
+        .search-button { 
+            background: var(--gradient-primary);
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            padding: 1rem 2rem; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition-normal); 
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        .search-button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4); 
+        }
+        
+        #suggestions-container {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            box-shadow: var(--hover-shadow);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            margin-top: 2px;
+        }
+        
+        .suggestion-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 0.95rem;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-item:hover, .suggestion-item:focus {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        .suggestion-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Comparison container styling */
+        .comparison-container { 
+            background: var(--card-bg); 
+            border-radius: 16px; 
+            margin-bottom: 3rem; 
+            box-shadow: var(--container-shadow);
+            overflow: hidden; 
+            border: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+        }
+
+        .comparison-container:hover {
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .comparison-header { 
+            padding: 2rem; 
+            border-bottom: 1px solid var(--border-color); 
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+        }
+        
+        .comparison-title { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem; 
+            color: var(--text-color); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+        }
+        
+        .url-info { 
+            display: grid;
+            gap: 1rem; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .url-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .url-label { 
+            font-weight: 600; 
+            color: var(--primary-color); 
+            min-width: 120px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .url-value { 
+            word-break: break-all; 
+            color: var(--text-color);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            flex: 1;
+        }
+        
+        .diff-summary { 
+            font-weight: 700; 
+            color: var(--error-color); 
+            margin: 2rem; 
+            font-size: 1.1rem; 
+            background: var(--error-light);
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 1.5rem; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-badge { 
+            color: #fff; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 0.875rem; 
+            display: inline-flex; 
+            align-items: center; 
+            box-shadow: var(--container-shadow);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge.passed { 
+            background: var(--gradient-success);
+        }
+        
+        .status-badge.failed { 
+            background: var(--gradient-error);
+            color: var(--error-color);
+        }
+
+        /* Collapsible diff styling */
+        .collapsible-diff {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin: 2rem;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: var(--container-shadow);
+        }
+        
+        .collapsible-diff summary {
+            padding: 1.5rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            transition: var(--transition-fast);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .collapsible-diff summary:hover {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        
+        .diff-stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .diff-stat-added {
+            color: var(--success-color);
+            font-weight: 700;
+            background: var(--success-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        
+        .diff-stat-removed {
+            color: var(--error-color);
+            font-weight: 700;
+            background: var(--error-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        /* Side-by-side diff styling */
+        .diff-side-by-side-container {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            background: var(--card-bg);
+        }
+        
+        .diff-panel {
+            width: 50%;
+            min-width: 400px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .diff-panel:first-child {
+            border-right: 2px solid var(--border-color);
+        }
+        
+        .diff-panel-header {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .diff-line-sbs {
+            padding: 0.5rem 1rem;
+            min-height: 1.75rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: var(--transition-fast);
+        }
+        
+        .diff-line-sbs:hover {
+            background: rgba(79, 70, 229, 0.05);
+        }
+        
+        .diff-line-sbs.added {
+            background: var(--added-bg);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .diff-line-sbs.removed {
+            background: var(--removed-bg);
+            border-left: 4px solid var(--error-color);
+        }
+        
+        .diff-line-sbs.placeholder {
+            background: #f8fafc;
+            opacity: 0.6;
+        }
+        
+        .line-number {
+            color: var(--text-muted);
+            text-align: right;
+            width: 50px;
+            padding-right: 1rem;
+            flex-shrink: 0;
+            user-select: none;
+            font-weight: 500;
+        }
+
+        /* Pagination styling */
+        .pagination { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            margin: 3rem 0; 
+            gap: 0.5rem; 
+        }
+        
+        .pagination-btn { 
+            background: var(--gradient-primary);
+            color: #fff; 
+            border: none; 
+            border-radius: 12px; 
+            padding: 1rem 1.5rem; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition-normal); 
+            box-shadow: var(--container-shadow);
+        }
+        
+        .pagination-btn:hover:not(:disabled) { 
+            transform: translateY(-2px); 
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .pagination-btn:disabled { 
+            background: var(--text-light); 
+            cursor: not-allowed; 
+            opacity: 0.5; 
+            transform: none;
+        }
+        
+        .pagination-page { 
+            background: var(--card-bg); 
+            color: var(--text-color); 
+            border: 2px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 1rem 1.25rem; 
+            min-width: 3rem; 
+            text-align: center; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition-normal); 
+            box-shadow: var(--container-shadow);
+        }
+        
+        .pagination-page:hover { 
+            border-color: var(--primary-color); 
+            color: var(--primary-color); 
+            transform: translateY(-2px); 
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .pagination-page.active { 
+            background: var(--gradient-primary);
+            color: #fff; 
+            border-color: var(--primary-color); 
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Visual Results Styling */
+        .visual-results-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .visual-test-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--container-shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+        }
+
+        .visual-test-card:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-2px);
+        }
+
+        .visual-test-card.test-passed {
+            border-left: 6px solid var(--success-color);
+        }
+
+        .visual-test-card.test-failed {
+            border-left: 6px solid var(--error-color);
+        }
+
+        .visual-test-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .visual-test-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .visual-test-title::before {
+            content: '🖼️';
+            font-size: 1.5rem;
+        }
+
+        .visual-status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .visual-status-badge.pass {
+            background: var(--success-light);
+            color: var(--success-color);
+        }
+
+        .visual-status-badge.fail {
+            background: var(--error-light);
+            color: var(--error-color);
+        }
+
+        .visual-test-content {
+            padding: 2rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .screenshot-card {
+            background: var(--bg-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .screenshot-card.reference {
+            border-color: var(--info-color);
+        }
+
+        .screenshot-card.test {
+            border-color: var(--warning-color);
+        }
+
+        .screenshot-card.difference {
+            border-color: var(--error-color);
+        }
+
+        .screenshot-header {
+            padding: 1rem;
+            font-weight: 700;
+            text-align: center;
+            color: white;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .screenshot-card.reference .screenshot-header {
+            background: var(--info-color);
+        }
+
+        .screenshot-card.test .screenshot-header {
+            background: var(--warning-color);
+        }
+
+        .screenshot-card.difference .screenshot-header {
+            background: var(--error-color);
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .screenshot-image:hover {
+            opacity: 0.9;
+        }
+
+        .visual-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .visual-action-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .visual-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        .visual-action-btn.secondary {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .visual-action-btn.secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .image-modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .image-modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            color: var(--text-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .image-modal-close:hover {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .visual-search-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: var(--container-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .visual-search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            outline: none;
+            transition: var(--transition-normal);
+            background-color: var(--bg-color);
+            font-weight: 500;
+        }
+
+        .visual-search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            background-color: #fff;
+        }
+
+        .visual-filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .visual-filter-tab {
+            background: var(--bg-color);
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .visual-filter-tab:hover,
+        .visual-filter-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .visual-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .visual-stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--container-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+        }
+
+        .visual-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .visual-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-stat-number.passed {
+            color: var(--success-color);
+        }
+
+        .visual-stat-number.failed {
+            color: var(--error-color);
+        }
+
+        .visual-stat-number.total {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .visual-stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .summary {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .search-container {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input-wrapper {
+                min-width: auto;
+            }
+            
+            .diff-side-by-side-container {
+                flex-direction: column;
+            }
+            
+            .diff-panel {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .diff-panel:first-child {
+                border-right: none;
+                border-bottom: 2px solid var(--border-color);
+            }
+        }
+
+        /* Loading and animation states */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comparison-container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="header-content">
+                    <h1>Combined Test Report</h1>
+                    <p class="header-subtitle">Detailed comparison results for your tests</p>
+                </div>
+            </div>
+
+            <div class="report-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Report ID</div>
+                    <div class="meta-value">{{reportId}}</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Timestamp</div>
+                    <div class="meta-value">{{timestamp}}</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">User</div>
+                    <div class="meta-value">{{user}}</div>
+                </div>
+            </div>
+
+            <div class="summary">
+                <div class="summary-item">
+                    <div class="value status-{{domOverallStatus}}">{{domTotalTests}}</div>
+                    <div class="label">DOM Tests</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value status-{{visualOverallStatus}}">{{visualTotalTests}}</div>
+                    <div class="label">Visual Tests</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value status-pass">{{domPassedTests}}</div>
+                    <div class="label">DOM Passed</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value status-fail">{{domFailedTests}}</div>
+                    <div class="label">DOM Failed</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value status-pass">{{visualPassedTests}}</div>
+                    <div class="label">Visual Passed</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value status-fail">{{visualFailedTests}}</div>
+                    <div class="label">Visual Failed</div>
+                </div>
+            </div>
+
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="showTab('dom')">DOM Results</button>
+                <button class="tab-btn" onclick="showTab('visual')">Visual Results</button>
+            </div>
+
+            <div class="content-area">
+                <section id="dom-results">
+                    <h2>DOM Comparison Results</h2>
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <input id="domSearchInput" type="text" placeholder="Search by page name..." class="search-input" autocomplete="off">
+                            <div id="suggestions-container"></div>
+                        </div>
+                        <button class="search-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                    
+                    <div id="dom-comparison-container" class="comparison-container"></div>
+                    
+                    <div class="pagination" id="domPagination"></div>
+                </section>
+
+                <section id="visual-results" style="display:none;">
+                    <h2>Visual Comparison Results</h2>
+                    
+                    <!-- Visual Search and Filter Controls -->
+                    <div class="visual-search-container">
+                        <input type="text" id="visualSearchInput" placeholder="Search visual tests by page name or viewport..." class="visual-search-input">
+                        <div class="visual-filter-tabs">
+                            <button class="visual-filter-tab active" data-filter="all">All Tests</button>
+                            <button class="visual-filter-tab" data-filter="pass">Passed Only</button>
+                            <button class="visual-filter-tab" data-filter="fail">Failed Only</button>
+                            <button class="visual-filter-tab" data-filter="desktop">Desktop</button>
+                            <button class="visual-filter-tab" data-filter="tablet">Tablet</button>
+                            <button class="visual-filter-tab" data-filter="mobile">Mobile</button>
+                        </div>
+                    </div>
+
+                    <!-- Visual Statistics -->
+                    <div class="visual-stats">
+                        <div class="visual-stat-card">
+                            <div class="visual-stat-number total" id="visualTotalCount">{{visualTotalTests}}</div>
+                            <div class="visual-stat-label">Total Tests</div>
+                        </div>
+                        <div class="visual-stat-card">
+                            <div class="visual-stat-number passed" id="visualPassedCount">{{visualPassedTests}}</div>
+                            <div class="visual-stat-label">Passed</div>
+                        </div>
+                        <div class="visual-stat-card">
+                            <div class="visual-stat-number failed" id="visualFailedCount">{{visualFailedTests}}</div>
+                            <div class="visual-stat-label">Failed</div>
+                        </div>
+                        <div class="visual-stat-card">
+                            <div class="visual-stat-number" id="visualSuccessRate">{{visualSuccessRate}}%</div>
+                            <div class="visual-stat-label">Success Rate</div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Test Results Container -->
+                    <div class="visual-results-container" id="visualResultsContainer">
+                        {{visualResults}}
+                    </div>
+
+                    <!-- Image Modal -->
+                    <div class="image-modal" id="imageModal">
+                        <div class="image-modal-content">
+                            <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+                            <img id="modalImage" src="" alt="Full size image">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Injected by report generator
+        const domComparisonResults = []; // This will be populated with data
+        let domCurrentPage = 1;
+        let activeSuggestionIndex = -1;
+
+        function showTab(tabName) {
+            const domResults = document.getElementById('dom-results');
+            const visualResults = document.getElementById('visual-results');
+            const tabButtons = document.querySelectorAll('.tab-btn');
+
+            if (tabName === 'dom') {
+                domResults.style.display = 'block';
+                visualResults.style.display = 'none';
+                tabButtons[0].classList.add('active');
+                tabButtons[1].classList.remove('active');
+            } else {
+                domResults.style.display = 'none';
+                visualResults.style.display = 'block';
+                tabButtons[0].classList.remove('active');
+                tabButtons[1].classList.add('active');
+            }
+        }
+
+        function escapeHtml(s) {
+            if (!s) return '';
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function renderDomReport(page) {
+            const data = domComparisonResults[page - 1];
+            if (!data) return;
+
+            const container = document.getElementById('dom-comparison-container');
+            if (!container) return;
+
+            const diffCount = data.differences ? data.differences.length : 0;
+            const borderColor = diffCount > 0 ? 'var(--error-color)' : 'var(--success-color)';
+            
+            let html = `<div class="comparison-header" style="border-left: 6px solid ${borderColor};">`;
+            html += `<div class="comparison-title">Comparison: ${data.testingUrl}</div>`;
+            
+            html += '<div class="url-info">';
+            html += `<div class="url-row"><span class="url-label">Test URL:</span><span class="url-value">${data.testingUrl}</span></div>`;
+            html += `<div class="url-row"><span class="url-label">Reference URL:</span><span class="url-value">${data.referenceUrl}</span></div>`;
+            
+            const statusClass = diffCount > 0 ? 'failed' : 'passed';
+            const statusText = diffCount > 0 ? 'DIFFERENCES FOUND' : 'IDENTICAL';
+            html += `<div style="margin-top:1rem;"><span class="status-badge ${statusClass}">${statusText}</span></div>`;
+            
+            html += '</div></div>';
+            
+            if (diffCount > 0) {
+                html += `<div class="diff-summary">${diffCount} difference${(diffCount === 1 ? '' : 's')} found</div>`;
+                
+                if (data.diffLines && data.diffLines.length > 0) {
+                    let leftHtml = '';
+                    let rightHtml = '';
+                    let leftLineNum = 1;
+                    let rightLineNum = 1;
+                    let addedLinesCount = 0;
+                    let removedLinesCount = 0;
+
+                    for (let i = 0; i < data.diffLines.length; i++) {
+                        const part = data.diffLines[i];
+                        const nextPart = (i + 1 < data.diffLines.length) ? data.diffLines[i + 1] : null;
+
+                        if (part.type === 'removed' && nextPart && nextPart.type === 'added') {
+                            const removedLines = escapeHtml(part.value).split('\n');
+                            const addedLines = escapeHtml(nextPart.value).split('\n');
+                            if (removedLines[removedLines.length-1] === '') removedLines.pop();
+                            if (addedLines[addedLines.length-1] === '') addedLines.pop();
+
+                            removedLinesCount += removedLines.length;
+                            addedLinesCount += addedLines.length;
+
+                            const maxLen = Math.max(removedLines.length, addedLines.length);
+                            for (let j = 0; j < maxLen; j++) {
+                                const leftLine = removedLines[j];
+                                const rightLine = addedLines[j];
+
+                                if(leftLine !== undefined) {
+                                    leftHtml += `<div class="diff-line-sbs removed"><span class="line-number">${leftLineNum++}</span>${leftLine}</div>`;
+                                } else {
+                                    leftHtml += `<div class="diff-line-sbs placeholder"><span class="line-number">&nbsp;</span></div>`;
+                                }
+
+                                if(rightLine !== undefined) {
+                                    rightHtml += `<div class="diff-line-sbs added"><span class="line-number">${rightLineNum++}</span>${rightLine}</div>`;
+                                } else {
+                                    rightHtml += `<div class="diff-line-sbs placeholder"><span class="line-number">&nbsp;</span></div>`;
+                                }
+                            }
+                            i++; // Move past the 'added' part
+                        } else if (part.type === 'removed') {
+                            const lines = escapeHtml(part.value).split('\n');
+                            if (lines[lines.length-1] === '') lines.pop();
+                            removedLinesCount += lines.length;
+                            lines.forEach(line => {
+                                leftHtml += `<div class="diff-line-sbs removed"><span class="line-number">${leftLineNum++}</span>${line}</div>`;
+                                rightHtml += `<div class="diff-line-sbs placeholder"><span class="line-number">&nbsp;</span></div>`;
+                            });
+                        } else if (part.type === 'added') {
+                            const lines = escapeHtml(part.value).split('\n');
+                            if (lines[lines.length-1] === '') lines.pop();
+                            addedLinesCount += lines.length;
+                            lines.forEach(line => {
+                                rightHtml += `<div class="diff-line-sbs added"><span class="line-number">${rightLineNum++}</span>${line}</div>`;
+                                leftHtml += `<div class="diff-line-sbs placeholder"><span class="line-number">&nbsp;</span></div>`;
+                            });
+                        } else { // unchanged
+                            const lines = escapeHtml(part.value).split('\n');
+                            if (lines[lines.length-1] === '') lines.pop();
+                            lines.forEach(line => {
+                                leftHtml += `<div class="diff-line-sbs"><span class="line-number">${leftLineNum++}</span>${line}</div>`;
+                                rightHtml += `<div class="diff-line-sbs"><span class="line-number">${rightLineNum++}</span>${line}</div>`;
+                            });
+                        }
+                    }
+
+                    html += '<details class="collapsible-diff" open>';
+                    html += `<summary><div>View DOM Differences</div><div class="diff-stats"><span class="diff-stat-added">+${addedLinesCount}</span><span class="diff-stat-removed">-${removedLinesCount}</span></div></summary>`;
+
+                    html += '<div class="diff-side-by-side-container">';
+                    html += `<div class="diff-panel"><div class="diff-panel-header">Reference</div>${leftHtml}</div>`;
+                    html += `<div class="diff-panel"><div class="diff-panel-header">Testing</div>${rightHtml}</div>`;
+                    html += '</div></details>';
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        function setupDomPagination() {
+            const paginationContainer = document.getElementById('domPagination');
+            if (!paginationContainer) return;
+
+            const totalPages = domComparisonResults.length;
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let paginationHtml = '';
+
+            paginationHtml += `<button class="pagination-btn" onclick="changeDomPage(${domCurrentPage - 1})" ${domCurrentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHtml += `<button class="pagination-page ${i === domCurrentPage ? 'active' : ''}" onclick="changeDomPage(${i})">${i}</button>`;
+            }
+
+            paginationHtml += `<button class="pagination-btn" onclick="changeDomPage(${domCurrentPage + 1})" ${domCurrentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+
+            paginationContainer.innerHTML = paginationHtml;
+        }
+
+        function changeDomPage(page) {
+            if (page < 1 || page > domComparisonResults.length) return;
+            domCurrentPage = page;
+            renderDomReport(page);
+            setupDomPagination();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // This is a placeholder. The actual data is injected by the report generator.
+            // For local testing, you can populate this array with sample data.
+            if (typeof domComparisonResults !== 'undefined' && domComparisonResults.length > 0) {
+                renderDomReport(1);
+                setupDomPagination();
+            }
+
+            const searchInput = document.getElementById('domSearchInput');
+            const suggestionsContainer = document.getElementById('suggestions-container');
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                if (!query) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+
+                const filteredResults = domComparisonResults.map((result, index) => ({
+                    url: result.testingUrl,
+                    page: index + 1
+                })).filter(result => result.url.toLowerCase().includes(query));
+
+                if (filteredResults.length > 0) {
+                    let suggestionsHtml = '';
+                    filteredResults.forEach((result) => {
+                        suggestionsHtml += `<div class="suggestion-item" data-page="${result.page}">${escapeHtml(result.url)}</div>`;
+                    });
+                    suggestionsContainer.innerHTML = suggestionsHtml;
+                    suggestionsContainer.style.display = 'block';
+                    activeSuggestionIndex = -1;
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            searchInput.addEventListener('keydown', function(e) {
+                const suggestions = suggestionsContainer.querySelectorAll('.suggestion-item');
+                if (suggestions.length === 0) return;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    activeSuggestionIndex = (activeSuggestionIndex + 1) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    activeSuggestionIndex = (activeSuggestionIndex - 1 + suggestions.length) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (activeSuggestionIndex > -1) {
+                        suggestions[activeSuggestionIndex].click();
+                    }
+                }
+            });
+
+            function updateActiveSuggestion(suggestions) {
+                suggestions.forEach((suggestion, index) => {
+                    if (index === activeSuggestionIndex) {
+                        suggestion.classList.add('active');
+                        suggestion.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        suggestion.classList.remove('active');
+                    }
+                });
+            }
+
+            suggestionsContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('suggestion-item')) {
+                    const page = parseInt(e.target.dataset.page, 10);
+                    changeDomPage(page);
+                    suggestionsContainer.style.display = 'none';
+                    searchInput.value = e.target.textContent;
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+        // Visual results functionality
+        let allVisualTests = [];
+        let filteredVisualTests = [];
+
+        function initializeVisualResults() {
+            // Extract visual test data from DOM for filtering and search
+            const visualCards = document.querySelectorAll('.visual-test-card');
+            allVisualTests = Array.from(visualCards).map(card => ({
+                element: card,
+                pageName: card.getAttribute('data-page') || '',
+                viewport: card.getAttribute('data-viewport') || '',
+                status: card.getAttribute('data-status') || ''
+            }));
+            filteredVisualTests = [...allVisualTests];
+        }
+
+        function filterVisualTests() {
+            const searchQuery = document.getElementById('visualSearchInput')?.value.toLowerCase() || '';
+            const activeFilter = document.querySelector('.visual-filter-tab.active')?.getAttribute('data-filter') || 'all';
+            
+            filteredVisualTests = allVisualTests.filter(test => {
+                const matchesSearch = !searchQuery || 
+                    test.pageName.includes(searchQuery) || 
+                    test.viewport.includes(searchQuery);
+                
+                const matchesFilter = activeFilter === 'all' || 
+                    test.status === activeFilter ||
+                    (activeFilter === 'desktop' && test.viewport.includes('desktop')) ||
+                    (activeFilter === 'tablet' && test.viewport.includes('tablet')) ||
+                    (activeFilter === 'mobile' && test.viewport.includes('mobile'));
+                
+                return matchesSearch && matchesFilter;
+            });
+            
+            // Show/hide test cards based on filter
+            allVisualTests.forEach(test => {
+                if (filteredVisualTests.includes(test)) {
+                    test.element.style.display = 'block';
+                } else {
+                    test.element.style.display = 'none';
+                }
+            });
+            
+            updateVisualStats();
+        }
+
+        function updateVisualStats() {
+            const visiblePassed = filteredVisualTests.filter(test => test.status === 'pass').length;
+            const visibleFailed = filteredVisualTests.filter(test => test.status === 'fail').length;
+            const visibleTotal = filteredVisualTests.length;
+            const visibleSuccessRate = visibleTotal > 0 ? Math.round((visiblePassed / visibleTotal) * 100) : 0;
+            
+            // Update stat cards if they exist
+            const totalElement = document.getElementById('visualTotalCount');
+            const passedElement = document.getElementById('visualPassedCount');
+            const failedElement = document.getElementById('visualFailedCount');
+            const successRateElement = document.getElementById('visualSuccessRate');
+            
+            if (totalElement) totalElement.textContent = visibleTotal;
+            if (passedElement) passedElement.textContent = visiblePassed;
+            if (failedElement) failedElement.textContent = visibleFailed;
+            if (successRateElement) successRateElement.textContent = visibleSuccessRate + '%';
+        }
+
+        function downloadDiffImage(diffImagePath) {
+            // Convert the BackstopJS relative path to the correct server URL
+            let cleanPath = diffImagePath.replace(/\\/g, '/').replace(/^\.\.\/+/g, '');
+            const fullUrl = `http://localhost:3001/reports/backstop/backstop_data/${cleanPath}`;
+            
+            const link = document.createElement('a');
+            link.href = fullUrl;
+            link.download = diffImagePath.split(/[\/\\]/).pop() || 'diff-image.png';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize visual results when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // This is a placeholder. The actual data is injected by the report generator.
+            // For local testing, you can populate this array with sample visual test data.
+            if (typeof visualResultsData !== 'undefined' && visualResultsData.length > 0) {
+                renderVisualResults();
+            }
+
+            // Initialize visual results functionality
+            initializeVisualResults();
+
+            // Visual search functionality
+            const visualSearchInput = document.getElementById('visualSearchInput');
+            if (visualSearchInput) {
+                visualSearchInput.addEventListener('input', filterVisualTests);
+            }
+
+            // Visual filter tabs functionality
+            const visualFilterTabs = document.querySelectorAll('.visual-filter-tab');
+            visualFilterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    visualFilterTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    // Apply filter
+                    filterVisualTests();
+                });
+            });
+
+            // Modal close on backdrop click
+            const imageModal = document.getElementById('imageModal');
+            if (imageModal) {
+                imageModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeImageModal();
+                    }
+                });
+            }
+
+            // Keyboard navigation for modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                }
+            });
+        });
+
+        function renderVisualResults() {
+            const container = document.getElementById('visualResultsContainer');
+            if (!container) return;
+
+            let html = '';
+
+            visualResultsData.forEach((result) => {
+                const statusClass = result.status === 'pass' ? 'test-passed' : 'test-failed';
+                html += `<div class="visual-test-card ${statusClass}" data-page="${escapeHtml(result.pageName)}" data-viewport="${escapeHtml(result.viewport)}" data-status="${result.status}">`;
+                html += `<div class="visual-test-header">`;
+                html += `<div class="visual-test-title">${escapeHtml(result.pageName)} - ${escapeHtml(result.viewport)}</div>`;
+                html += `<div class="visual-status-badge ${result.status}">${result.status.toUpperCase()}</div>`;
+                html += `</div>`;
+                html += `<div class="visual-test-content">`;
+                html += `<div class="screenshot-grid">`;
+
+                result.screenshots.forEach((screenshot) => {
+                    html += `<div class="screenshot-card" onclick="openImageModal('${escapeHtml(screenshot.fullSizeUrl)}')">`;
+                    html += `<div class="screenshot-header">${escapeHtml(screenshot.label)}</div>`;
+                    html += `<img src="${escapeHtml(screenshot.thumbnailUrl)}" alt="${escapeHtml(screenshot.label)}" class="screenshot-image">`;
+                    html += `</div>`;
+                });
+
+                html += `</div>`;
+                html += `</div>`;
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function openImageModal(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            if (modal && modalImage) {
+                modalImage.src = imageUrl;
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

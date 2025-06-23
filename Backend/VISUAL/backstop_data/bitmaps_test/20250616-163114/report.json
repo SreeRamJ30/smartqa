@@ -1,0 +1,54 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "..\\bitmaps_reference\\visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_0_desktop.png",
+        "test": "..\\bitmaps_test\\20250616-163114\\visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_0_desktop.png",
+        "selector": "viewport",
+        "fileName": "visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_0_desktop.png",
+        "label": "Page: index.html",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index.html",
+        "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index2.html",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "..\\bitmaps_reference\\visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_1_mobile.png",
+        "test": "..\\bitmaps_test\\20250616-163114\\visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_1_mobile.png",
+        "selector": "viewport",
+        "fileName": "visual-test-2025-06-16T11-01-13014Z_Page_indexhtml_0_viewport_1_mobile.png",
+        "label": "Page: index.html",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index.html",
+        "referenceUrl": "file:///C:/Users/SreeRamJ/Cloudhalo/visual-test/HTML/index2.html",
+        "expect": 0,
+        "viewportLabel": "mobile",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    }
+  ],
+  "id": "visual-test-2025-06-16T11-01-13.014Z"
+}
