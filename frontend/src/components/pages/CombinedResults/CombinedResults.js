@@ -818,93 +818,80 @@ function CombinedResults() {
     URL.revokeObjectURL(url);
   };
 
-  // Missing function: generateComparisonData
-  const generateComparisonData = (reports) => {
+  // Helper: Generate comparison data for selected reports
+  function generateComparisonData(reports) {
     if (!reports || reports.length < 2) return null;
 
-    const sortedReports = [...reports].sort((a, b) => 
-      new Date(a.timestamp || a.id) - new Date(b.timestamp || b.id)
-    );
+    // Extract summaries for each report
+    const domSummaries = reports.map(r => r.domResult?.summary || {});
+    const visualSummaries = reports.map(r => r.visualResult?.summary || {});
 
-    // Extract data for comparison
-    const domComparison = {
-      successRates: sortedReports.map(r => r.domResult?.summary?.successRate || 0),
-      totalTests: sortedReports.map(r => r.domResult?.summary?.totalTests || 0),
-      failedTests: sortedReports.map(r => r.domResult?.summary?.failedTests || 0)
-    };
+    // Calculate success rates
+    const domSuccessRates = domSummaries.map(s => s.successRate || 0);
+    const visualSuccessRates = visualSummaries.map(s => s.successRate || 0);
 
-    const visualComparison = {
-      successRates: sortedReports.map(r => r.visualResult?.summary?.successRate || 0),
-      totalTests: sortedReports.map(r => r.visualResult?.summary?.totalTests || 0),
-      failedTests: sortedReports.map(r => r.visualResult?.summary?.failedTests || 0)
-    };
+    // Calculate averages
+    const avgDomSuccess = domSuccessRates.reduce((a, b) => a + b, 0) / domSuccessRates.length;
+    const avgVisualSuccess = visualSuccessRates.reduce((a, b) => a + b, 0) / visualSuccessRates.length;
 
-    const performanceComparison = {
-      executionTimes: sortedReports.map(r => r.executionTimeMs || 0)
-    };
-
-    // Calculate trends
-    const calculateTrend = (values) => {
-      if (values.length < 2) return 'neutral';
-      const first = values[0];
-      const last = values[values.length - 1];
-      const change = ((last - first) / first) * 100;
-      
-      if (Math.abs(change) < 5) return 'neutral';
-      return change > 0 ? 'positive' : 'negative';
-    };
-
-    // Calculate summary data
-    const summary = {
-      totalReports: reports.length,
-      timeRange: {
-        earliest: Math.min(...sortedReports.map(r => new Date(r.timestamp || r.id).getTime())),
-        latest: Math.max(...sortedReports.map(r => new Date(r.timestamp || r.id).getTime()))
-      },
-      averageExecutionTime: performanceComparison.executionTimes.reduce((sum, time) => sum + time, 0) / performanceComparison.executionTimes.length,
-      overallTrends: {
-        dom: calculateTrend(domComparison.successRates),
-        visual: calculateTrend(visualComparison.successRates),
-        performance: calculateTrend(performanceComparison.executionTimes)
-      }
-    };
-
-    return {
-      summary,
-      domComparison,
-      visualComparison,
-      performanceComparison,
-      reports: sortedReports
-    };
-  };
-
-  // Missing function: exitCompareMode
-  const exitCompareMode = () => {
-    setCompareMode(false);
-    setSelectedReportsForComparison([]);
-    if (selectedReport?.isComparison) {
-      setSelectedReport(null);
-      setSelectedTab('overview');
+    // Calculate trends (simple: up/down/flat)
+    function getTrend(arr) {
+      if (arr.length < 2) return 'flat';
+      const diff = arr[arr.length - 1] - arr[0];
+      if (diff > 0) return 'up';
+      if (diff < 0) return 'down';
+      return 'flat';
     }
-  };
 
-  // Compare Mode Functions
-  const toggleReportSelection = (reportId) => {
-    setSelectedReportsForComparison(prev => {
-      if (prev.includes(reportId)) {
-        // Remove from selection
-        return prev.filter(id => id !== reportId);
-      } else {
-        // Add to selection (limit to 3 reports for comparison)
-        if (prev.length >= 3) {
-          alert('You can compare up to 3 reports at a time');
-          return prev;
-        }
-        return [...prev, reportId];
-      }
-    });
-  };
+    // Calculate time range
+    const timestamps = reports.map(r => r.timestamp).filter(Boolean).sort();
+    const timeRange = {
+      earliest: timestamps[0],
+      latest: timestamps[timestamps.length - 1],
+    };
 
+    // Calculate average execution time using executionTimeMs
+    const execTimes = reports.map(r => r.executionTimeMs || 0);
+    const avgExecTime = execTimes.length > 0 ? execTimes.reduce((a, b) => a + b, 0) / execTimes.length : 0;
+
+    // Build comparison data object
+    return {
+      summary: {
+        totalReports: reports.length,
+        timeRange,
+        averageExecutionTime: avgExecTime,
+        overallTrends: {
+          dom: { direction: getTrend(domSuccessRates) },
+          visual: { direction: getTrend(visualSuccessRates) },
+        },
+      },
+      domComparison: {
+        successRates: domSuccessRates,
+        average: avgDomSuccess,
+        totals: domSummaries.map(s => s.totalTests || 0),
+        passed: domSummaries.map(s => s.passedTests || 0),
+        failed: domSummaries.map(s => s.failedTests || 0),
+      },
+      visualComparison: {
+        successRates: visualSuccessRates,
+        average: avgVisualSuccess,
+        totals: visualSummaries.map(s => s.totalTests || 0),
+        passed: visualSummaries.map(s => s.passedTests || 0),
+        failed: visualSummaries.map(s => s.failedTests || 0),
+      },
+      reports: reports.map(report => ({
+        id: report.id,
+        timestamp: report.timestamp,
+        domSuccessRate: report.domResult?.summary?.successRate || 0,
+        visualSuccessRate: report.visualResult?.summary?.successRate || 0,
+        totalTests: (report.domResult?.summary?.totalTests || 0) + (report.visualResult?.summary?.totalTests || 0),
+        executionTimeMs: report.executionTimeMs || 0, // <-- ensure this property is present
+        user: report.user
+      })),
+    };
+  }
+
+  // Example usage: when user clicks 'Compare Selected', generate and set comparison data
   const handleCompareReports = () => {
     if (selectedReportsForComparison.length < 2) {
       alert('Please select at least 2 reports to compare');
@@ -926,11 +913,8 @@ function CombinedResults() {
       .then(reports => {
         const validReports = reports.filter(report => report !== null);
         if (validReports.length >= 2) {
-          setSelectedReport({
-            isComparison: true,
-            reports: validReports,
-            comparisonData: generateComparisonData(validReports)
-          });
+          const comparisonData = generateComparisonData(validReports);
+          setSelectedReport({ isComparison: true, reports: validReports, comparisonData });
           setSelectedTab('comparison');
         } else {
           alert('Failed to load some reports for comparison');
@@ -1870,7 +1854,7 @@ function CombinedResults() {
                       fill="#3b82f6"
                       className="data-point"
                     />
-                                       <circle
+                    <circle
                       cx={xScale(index)}
                       cy={yScale(report.visualResult?.summary?.successRate)}
                       r="4"
@@ -1981,7 +1965,7 @@ function CombinedResults() {
               </div>
               <div className="category-metrics-row">
                 <div className="metric" title="Total DOM Tests"><i className="fas fa-list-ol"></i> {domSummary.totalTests || 0}</div>
-                               <div className="metric success" title="Passed"><i className="fas fa-check"></i> {domSummary.passedTests || 0}</div>
+                <div className="metric success" title="Passed"><i className="fas fa-check"></i> {domSummary.passedTests || 0}</div>
                 <div className="metric failed" title="Failed"><i className="fas fa-times"></i> {domSummary.failedTests || 0}</div>
               </div>
               <button className="category-action-btn" onClick={() => setSelectedTab('dom')} title="View DOM Details">
@@ -2022,6 +2006,25 @@ function CombinedResults() {
     );
   };
   
+  // Add missing function to exit compare mode
+  function exitCompareMode() {
+    setCompareMode(false);
+    setSelectedReportsForComparison([]);
+    setSelectedReport(null);
+    setSelectedTab('overview');
+  }
+
+  // Add missing function to toggle report selection for comparison
+  function toggleReportSelection(reportId) {
+    setSelectedReportsForComparison(prev => {
+      if (prev.includes(reportId)) {
+        return prev.filter(id => id !== reportId);
+      } else {
+        return [...prev, reportId];
+      }
+    });
+  }
+
   return (
     <div className="combined-results-section">
       <h2>Combined Test Results</h2>
