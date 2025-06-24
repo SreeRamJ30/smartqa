@@ -389,7 +389,7 @@ function Dashboard() {
                         setShowTestOptions(false);
                       }}
                     >
-                      <i className="fas fa-layer-group"></i> Combined Test
+                      <i className="fas fa-layer-group"></i> DOM & Visual Test
                     </div>
                     <div 
                       className="test-option" 
