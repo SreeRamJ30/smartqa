@@ -407,36 +407,6 @@ or comma separated"
         </div>
       </div>
       
-      <div className="saved-test-suites">
-        <h3>Saved Test Suites</h3>
-        <div className="suite-list">
-          <div className="suite-item">
-            <h4>Homepage Elements Suite</h4>
-            <p>Tests critical elements on the homepage</p>
-            <div className="suite-actions">
-              <span className="suite-info">8 URLs</span>
-              <button>Run</button>
-            </div>
-          </div>
-          <div className="suite-item">
-            <h4>Login Flow Suite</h4>
-            <p>Tests login page and authentication elements</p>
-            <div className="suite-actions">
-              <span className="suite-info">3 URLs</span>
-              <button>Run</button>
-            </div>
-          </div>
-          <div className="suite-item">
-            <h4>Product Pages</h4>
-            <p>Tests product detail page variations</p>
-            <div className="suite-actions">
-              <span className="suite-info">12 URLs</span>
-              <button>Run</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       {/* Custom Modal for DOM Test Result */}
       {modal.open && (
         <div className={`custom-modal ${modal.type}`}>
